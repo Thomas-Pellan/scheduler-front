@@ -4,7 +4,8 @@
       <v-btn
         class="button-check"
         :loading="isLoading"
-        @click="checkHealth">
+        @click="checkHealth"
+      >
         Check Health !
       </v-btn>
       <v-checkbox
@@ -21,8 +22,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
-import moment from 'moment'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 import { BACKEND_STATUS } from '@/utils/enums'
 
@@ -33,8 +33,7 @@ export default {
       isLoading: false,
       continuous: true,
       checkInterval: null,
-      interval: 5000,
-      lastCheckDate: null
+      interval: 5000
     }
   },
   created () {
@@ -43,6 +42,14 @@ export default {
         this.checkHealth()
       }
     }, this.interval)
+  },
+  beforeDestroy () {
+    clearInterval(this.checkInterval)
+  },
+  computed: {
+    ...mapGetters({
+      lastCheckDate: 'health/LAST_STATUS_DATE'
+    })
   },
   methods: {
     ...mapActions({
@@ -56,11 +63,7 @@ export default {
       this.setHealth(BACKEND_STATUS.UNKOWN)
       await this.getHealth()
       this.isLoading = false
-      this.lastCheckDate = moment(new Date()).format('MM/DD/YYYY hh:mm:ss')
     }
-  },
-  beforeDestroy () {
-    clearInterval(this.checkInterval)
   }
 }
 </script>

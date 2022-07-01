@@ -6,8 +6,11 @@
       width="100%"
     >
       <v-row>
-        <HealthStatus/>
-        <HealthStatusTrigger/>
+        <HealthStatus />
+        <HealthStatusTrigger />
+      </v-row>
+      <v-row>
+        <HealthStatusHistory />
       </v-row>
     </v-sheet>
 </template>
@@ -16,12 +19,14 @@
 
 import HealthStatusTrigger from '@/components/HealthStatusTrigger'
 import HealthStatus from '@/components/HealthStatus'
+import HealthStatusHistory from '@/components/HealthStatusHistory'
 
 export default {
   name: 'HealthPage',
   components: {
     HealthStatus,
-    HealthStatusTrigger
+    HealthStatusTrigger,
+    HealthStatusHistory
   }
 }
 </script>
