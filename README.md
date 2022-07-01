@@ -7,6 +7,7 @@
 ### Features - Versions
 
 - 1.0.0 : Vue/Nuxt project setup with vuetify templating
+- 1.0.1 : Creating API call, simple sotre and components to check if the backend is up and running
 
 ### Requirements
 
