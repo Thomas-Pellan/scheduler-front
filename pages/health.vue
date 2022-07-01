@@ -17,9 +17,9 @@
 
 <script>
 
-import HealthStatusTrigger from '@/components/HealthStatusTrigger'
-import HealthStatus from '@/components/HealthStatus'
-import HealthStatusHistory from '@/components/HealthStatusHistory'
+import HealthStatusTrigger from '~/components/health/HealthStatusTrigger'
+import HealthStatus from '~/components/health/HealthStatus'
+import HealthStatusHistory from '~/components/health/HealthStatusHistory'
 
 export default {
   name: 'HealthPage',

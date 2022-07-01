@@ -106,6 +106,11 @@ export default {
           icon: 'mdi-hospital',
           title: 'Health Check',
           to: '/health'
+        },
+        {
+          icon: 'mdi-check',
+          title: 'Cron expression validator',
+          to: '/cronValidator'
         }
       ],
       miniVariant: false,

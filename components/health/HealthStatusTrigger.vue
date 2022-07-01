@@ -24,7 +24,7 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-import { BACKEND_STATUS } from '@/utils/enums'
+import { BACKEND_STATUS } from '~/utils/enums'
 
 export default {
   name: 'HealthStatusTrigger',
