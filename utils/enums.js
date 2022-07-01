@@ -1,0 +1,7 @@
+
+export const BACKEND_STATUS = {
+  UNKOWN: 'UNKOWN',
+  UP: 'UP',
+  ERROR: 'ERROR',
+  UNREACHABLE: 'UNREACHABLE'
+}
