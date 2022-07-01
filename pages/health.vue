@@ -1,29 +1,20 @@
 <template>
   <v-row>
-    <v-col class="text-center">
-      Health Page Check : {{ healthStatus }}
-    </v-col>
-    <v-btn @click="checkHealth">
-      Check Health
-    </v-btn>
+    <HealthStatus/>
+    <HealthStatusTrigger/>
   </v-row>
 </template>
 
 <script>
 
-import { BACKEND_STATUS } from '@/utils/enums'
+import HealthStatusTrigger from '@/components/HealthStatusTrigger'
+import HealthStatus from '@/components/HealthStatus'
 
 export default {
   name: 'HealthPage',
-  data () {
-    return {
-      healthStatus: BACKEND_STATUS.UNKOWN
-    }
-  },
-  methods: {
-    async checkHealth () {
-      this.healthStatus = await this.$api.actuator.getHealth()
-    }
+  components: {
+    HealthStatus,
+    HealthStatusTrigger
   }
 }
 </script>
