@@ -1,8 +1,15 @@
 <template>
-  <v-row>
-    <HealthStatus/>
-    <HealthStatusTrigger/>
-  </v-row>
+    <v-sheet
+      class="sheet-status"
+      elevation="7"
+      color="gray"
+      width="100%"
+    >
+      <v-row>
+        <HealthStatus/>
+        <HealthStatusTrigger/>
+      </v-row>
+    </v-sheet>
 </template>
 
 <script>
@@ -18,3 +25,9 @@ export default {
   }
 }
 </script>
+
+<style>
+  .sheet-status{
+    margin-top: 2rem;
+  }
+</style>
