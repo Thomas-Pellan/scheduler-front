@@ -4,7 +4,7 @@ export default axios => ({
 
   async getHealth () {
     try {
-      await axios.get('http://localhost:8080/actuator/health')
+      await axios.get('/actuator/health')
       return BACKEND_STATUS.UP
     } catch (error) {
       if (error.response) {
