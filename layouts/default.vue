@@ -103,14 +103,19 @@ export default {
           to: '/'
         },
         {
-          icon: 'mdi-hospital',
-          title: 'Health Check',
-          to: '/health'
-        },
-        {
           icon: 'mdi-check',
           title: 'Expression Validator',
           to: '/cronValidator'
+        },
+        {
+          icon: 'mdi-pencil',
+          title: 'Task editor',
+          to: '/taskEditor'
+        },
+        {
+          icon: 'mdi-hospital',
+          title: 'Health Check',
+          to: '/health'
         }
       ],
       miniVariant: false,
