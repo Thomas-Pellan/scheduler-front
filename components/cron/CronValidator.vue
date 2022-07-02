@@ -13,7 +13,7 @@
         @click="validate"
         :loading="isLoading"
       >
-        Valider
+        Validate
       </v-btn>
       <v-chip
         :color="chipColor"
@@ -52,16 +52,16 @@ export default {
       this.isLoading = false
 
       if (result === BACKEND_STATUS.ERROR || result === BACKEND_STATUS.UNREACHABLE) {
-        this.resultValidation = 'Aucune réponse du serveur'
+        this.resultValidation = 'Server did not respond.'
         return
       }
 
       if (result === false) {
-        this.resultValidation = 'L\'expression n\'est pas considée comme valide'
+        this.resultValidation = 'The given input is not a valid spring cron expression'
         return
       }
 
-      this.resultValidation = 'Expression valide !'
+      this.resultValidation = 'Valid entry !'
       this.chipColor = 'green'
     }
   }
