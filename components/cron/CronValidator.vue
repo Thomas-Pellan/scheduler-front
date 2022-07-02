@@ -2,25 +2,24 @@
   <v-col class="text-center">
     <v-row>
       <v-text-field
+        v-model="expression"
         class="input-cron"
         :rules="rules"
-        v-model="expression"
         :loading="isLoading"
-      >
-      </v-text-field>
+      />
       <v-btn
         class="button-check"
-        @click="validate"
         :loading="isLoading"
+        @click="validate"
       >
         Validate
       </v-btn>
       <v-chip
+        v-if="resultValidation"
         :color="chipColor"
         class="label-result"
-        v-if="resultValidation"
       >
-          {{ resultValidation }}
+        {{ resultValidation }}
       </v-chip>
     </v-row>
   </v-col>
