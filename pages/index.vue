@@ -61,16 +61,42 @@
             Nuxt GitHub
           </a>
         </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            nuxt
-            to="/inspire"
-          >
-            Continue
-          </v-btn>
-        </v-card-actions>
+      </v-card>
+    </v-col>
+    <v-col cols="12" sm="8" md="6">
+      <v-card class="logo py-4 d-flex justify-center">
+        <ThomasLogo />
+      </v-card>
+      <v-card>
+        <v-card-title class="headline">
+          Hi ! I'm a simple Scheduler App
+        </v-card-title>
+        <v-card-text>
+          <p>This app is a playground to practice VueJs, Nuxt and Vuetify all together.</p>
+          <p>
+            You can find the code <a href="https://github.com/Thomas-Pellan/scheduler-front">here</a>, please note that you need to use the API that can be found <a href="https://github.com/Thomas-Pellan/scheduler">here</a>
+          </p>
+          <p>
+            <strong>But what does it do, Thomas ?</strong>
+          </p>
+          <p>
+            You can create in this app tasks, that will be specified using :
+          </p>
+          <ul>
+            <li>
+              A cron expression, used to tell the app at what time it needs to run
+            </li>
+            <li>
+              An url, that will be called by the app (using http GET only for now)
+            </li>
+            <li>
+              Parameters that will be given to the API call
+            </li>
+          </ul>
+          <p>
+            It will be then available for you to see the responses the scheduler got :)
+          </p>
+        </v-card-text>
       </v-card>
     </v-col>
   </v-row>
