@@ -109,7 +109,7 @@ export default {
         },
         {
           icon: 'mdi-check',
-          title: 'Cron expression validator',
+          title: 'Expression Validator',
           to: '/cronValidator'
         }
       ],

@@ -5,17 +5,24 @@
         class="input-cron"
         :rules="rules"
         v-model="expression"
+        :loading="isLoading"
       >
       </v-text-field>
       <v-btn
+        class="button-check"
         @click="validate"
+        :loading="isLoading"
       >
         Valider
       </v-btn>
+      <v-chip
+        :color="chipColor"
+        class="label-result"
+        v-if="resultValidation"
+      >
+          {{ resultValidation }}
+      </v-chip>
     </v-row>
-    <p v-if="resultValidation">
-      {{ resultValidation }}
-    </p>
   </v-col>
 </template>
 
@@ -28,24 +35,21 @@ export default {
     return {
       expression: null,
       resultValidation: null,
+      chipColor: 'red',
+      isLoading: false,
       rules: [
         value => !!value || 'Required.',
-        value => (value || '').trim().length >= 5 || 'Should be at least 5 characters'
+        value => (value || '').replaceAll(' ', '').length >= 6 || 'Should be at least 6 characters'
       ]
     }
   },
   methods: {
-    getResultColor (status) {
-      if (status === BACKEND_STATUS.UP) {
-        return 'green'
-      }
-      if (status === BACKEND_STATUS.UNKOWN) {
-        return 'orange'
-      }
-      return 'red'
-    },
     async validate () {
+      this.isLoading = true
+      this.chipColor = 'red'
+      this.resultValidation = ''
       const result = await this.$api.cronExpression.validateCronExpression(this.expression)
+      this.isLoading = false
 
       if (result === BACKEND_STATUS.ERROR || result === BACKEND_STATUS.UNREACHABLE) {
         this.resultValidation = 'Aucune réponse du serveur'
@@ -58,6 +62,7 @@ export default {
       }
 
       this.resultValidation = 'Expression valide !'
+      this.chipColor = 'green'
     }
   }
 }
@@ -65,7 +70,15 @@ export default {
 
 <style>
   .input-cron {
-    max-width: 60%;
+    max-width: 50%;
     margin-left: 2rem;
+  }
+
+  .button-check {
+    margin: 1rem;
+  }
+
+  .label-result {
+    margin-top: 1.2rem;
   }
 </style>
