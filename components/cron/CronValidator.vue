@@ -6,7 +6,7 @@
         class="input-cron"
         :rules="rules"
         :loading="isLoading"
-        abel="Expression for validation"
+        label="Expression for validation"
       />
       <v-btn
         class="button-check"

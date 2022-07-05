@@ -35,8 +35,7 @@ export default {
       commit('SET_IS_LOADING', true)
       commit('SET_SEARCH_MSG', null)
       commit('SET_TASKS_FOUND', [])
-      const tasks = await this.$api.task.find({ name: getters.query.name, url: getters.query.url })
-      console.log(tasks)
+      const tasks = await this.$api.task.find({ name: getters.QUERY.name, url: getters.QUERY.url })
 
       commit('SET_IS_LOADING', false)
       if (tasks === BACKEND_STATUS.ERROR || tasks === BACKEND_STATUS.UNREACHABLE) {
@@ -51,7 +50,6 @@ export default {
       commit('SET_SEARCH_MSG', null)
       commit('SET_TASKS_FOUND', [])
       const tasks = await this.$api.task.findAll()
-      console.log(tasks)
 
       commit('SET_IS_LOADING', false)
       if (tasks === BACKEND_STATUS.ERROR || tasks === BACKEND_STATUS.UNREACHABLE) {

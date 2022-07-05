@@ -1,5 +1,6 @@
 <template>
   <v-card
+    class="search-bar"
     color="basil"
     flat
   >
@@ -9,14 +10,14 @@
         class="input-cron"
         :rules="rules"
         :loading="isLoading"
-        abel="Name"
+        label="Name"
       />
       <v-text-field
         v-model="queryUrl"
         class="input-cron"
         :rules="rules"
         :loading="isLoading"
-        abel="Url"
+        label="Url"
       />
       <v-btn
         class="button-check"
@@ -82,3 +83,9 @@ export default {
 }
 
 </script>
+
+<style>
+  .search-bar {
+    margin: 2rem 1rem;
+  }
+</style>
