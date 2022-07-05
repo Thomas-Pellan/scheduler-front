@@ -27,13 +27,18 @@
             color="basil"
             flat
           >
-            <div v-if="item === 'Task'">
+            <div v-if="item === 'Task Search'">
               <TaskSearch />
+              <TaskSearchResults />
+            </div>
+            <div v-else-if="item === 'Task Edition'">
               <TaskForm />
             </div>
+            <div v-else-if="item === 'Input Search'">
+              <InputSearch />
+            </div>
             <div v-else>
-              <OutputSearch />
-              <OutputForm />
+              <InputForm />
             </div>
           </v-card>
         </v-tab-item>
@@ -46,14 +51,16 @@
 
 import TaskSearch from '@/components/editor/TaskSearch'
 import TaskForm from '@/components/editor/TaskForm'
-import OutputSearch from '@/components/editor/OutputSearch'
-import OutputForm from '@/components/editor/OutputForm'
+import InputSearch from '@/components/editor/InputSearch'
+import InputForm from '@/components/editor/InputForm'
+import TaskSearchResults from '@/components/editor/TaskSearchResults'
 
 export default {
   name: 'TaskEditor',
   components: {
-    OutputForm,
-    OutputSearch,
+    TaskSearchResults,
+    InputSearch,
+    InputForm,
     TaskForm,
     TaskSearch
   },
@@ -61,13 +68,8 @@ export default {
     return {
       tab: null,
       items: [
-        'Task', 'Input'
+        'Task Search', 'Task Edition', 'Input Search', 'Input Edition'
       ]
-    }
-  },
-  methods: {
-    changeTab () {
-      this.taskSelected = !this.taskSelected
     }
   }
 }
