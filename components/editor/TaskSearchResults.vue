@@ -26,6 +26,74 @@
     <template v-slot:[`item.lastExecution`]="{ item }">
         {{ getExecutionStr(item.lastExecution) }}
     </template>
+    <template v-slot:[`item.actions`]="{ item }">
+      <v-tooltip
+        left
+        color="grey"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-icon
+            small
+            class="mr-2"
+            v-bind="attrs"
+            v-on="on"
+            @click="editTask(item)"
+          >
+            mdi-pencil
+          </v-icon>
+        </template>
+        <span>Edit this task</span>
+      </v-tooltip>
+      <v-tooltip
+        left
+        color="grey"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-icon
+            small
+            class="mr-2"
+            v-bind="attrs"
+            v-on="on"
+            @click="refreshStatus(item)"
+          >
+            mdi-reload
+          </v-icon>
+        </template>
+        <span>Reload task execution date and status</span>
+      </v-tooltip>
+      <v-tooltip
+        left
+        color="grey"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-icon
+            small
+            v-bind="attrs"
+            v-on="on"
+            @click="copyTask(item)"
+          >
+            mdi-content-copy
+          </v-icon>
+        </template>
+        <span>Duplicate this task</span>
+      </v-tooltip>
+      <v-tooltip
+        left
+        color="grey"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-icon
+            small
+            v-bind="attrs"
+            v-on="on"
+            @click="deleteTask(item)"
+          >
+            mdi-delete
+          </v-icon>
+        </template>
+        <span>Delete this task</span>
+      </v-tooltip>
+    </template>
   </v-data-table>
 </template>
 
@@ -40,11 +108,12 @@ export default {
     return {
       headers: [
         { text: 'Name', value: 'name' },
-        { text: 'Active', value: 'active', sortable: true },
+        { text: 'Active', value: 'active' },
         { text: 'Url', value: 'url' },
         { text: 'Cron Expression', value: 'cronExpression' },
         { text: 'Last Http Response', value: 'lastResult' },
-        { text: 'Last Execution date', value: 'lastExecution' }
+        { text: 'Last Execution date', value: 'lastExecution' },
+        { text: 'Actions', value: 'actions', sortable: false }
       ]
     }
   },
@@ -74,6 +143,18 @@ export default {
     },
     getExecutionStr (executionDate) {
       return moment(executionDate).format(DATE_TIME_FORMAT)
+    },
+    editTask (task) {
+
+    },
+    deleteTask (task) {
+
+    },
+    refreshStatus (task) {
+
+    },
+    copyTask (task) {
+
     }
   }
 }
