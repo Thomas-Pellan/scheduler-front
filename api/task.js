@@ -64,9 +64,9 @@ export default axios => ({
       }
     }
   },
-  async delete (taskName) {
+  async delete (id) {
     try {
-      const result = await axios.put(URL_PREFIX + '/delete', taskName)
+      const result = await axios.delete(URL_PREFIX + '/delete', { params: { id } })
       return result.data
     } catch (error) {
       if (error.response) {

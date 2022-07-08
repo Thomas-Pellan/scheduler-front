@@ -36,6 +36,15 @@ export default {
           item.lastResult = task.lastResult
         }
       })
+    },
+    DELETE_TASK: (state, task) => {
+      const tasks = []
+      state.tasksFound.forEach((item) => {
+        if (item.id !== task.id) {
+          tasks.push(item)
+        }
+      })
+      state.tasksFound = tasks
     }
   },
   actions: {

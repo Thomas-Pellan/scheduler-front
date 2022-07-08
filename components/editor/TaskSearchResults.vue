@@ -28,7 +28,7 @@
     </template>
     <template #[`item.actions`]="{ item }">
       <v-tooltip
-        left
+        top
         color="grey"
       >
         <template #activator="{ on, attrs }">
@@ -45,7 +45,7 @@
         <span>Edit this task</span>
       </v-tooltip>
       <v-tooltip
-        left
+        top
         color="grey"
       >
         <template #activator="{ on, attrs }">
@@ -62,7 +62,7 @@
         <span>Reload task execution date and status</span>
       </v-tooltip>
       <v-tooltip
-        left
+        top
         color="grey"
       >
         <template #activator="{ on, attrs }">
@@ -78,7 +78,7 @@
         <span>Duplicate this task</span>
       </v-tooltip>
       <v-tooltip
-        left
+        top
         color="grey"
       >
         <template #activator="{ on, attrs }">
@@ -86,13 +86,27 @@
             small
             v-bind="attrs"
             v-on="on"
-            @click="deleteTask(item)"
+            @click="openDeleteModal(item)"
           >
             mdi-delete
           </v-icon>
         </template>
         <span>Delete this task</span>
       </v-tooltip>
+      <v-dialog v-model="modalDelete" max-width="550px">
+        <v-card>
+          <v-card-title class="text-h5">Do you want to delete or inactivate this item ?</v-card-title>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="green" text @click="closeModal">Cancel</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn color="orange" text @click="inactivateTask">Inactivate</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn color="red" text @click="deleteTask">Delete</v-btn>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </template>
   </v-data-table>
 </template>
@@ -106,6 +120,8 @@ export default {
   name: 'TaskSearchResults',
   data () {
     return {
+      taskToDelete: null,
+      modalDelete: false,
       headers: [
         { text: 'Name', value: 'name' },
         { text: 'Active', value: 'active' },
@@ -126,7 +142,9 @@ export default {
   },
   methods: {
     ...mapMutations({
-      setQuery: 'searchTask/SET_QUERY'
+      setQuery: 'searchTask/SET_QUERY',
+      deleteTaskFromResults: 'searchTask/DELETE_TASK',
+      setLoading: 'searchTask/SET_IS_LOADING'
     }),
     ...mapActions({
       updateTaskStatus: 'searchTask/UPDATE_TASK_EXECUTION'
@@ -153,8 +171,18 @@ export default {
     editTask (task) {
 
     },
-    deleteTask (task) {
+    inactivateTask () {
 
+    },
+    async deleteTask () {
+      this.setLoading(true)
+      const result = await this.$api.task.delete(this.taskToDelete.id)
+      if (result === true) {
+        this.deleteTaskFromResults(this.taskToDelete)
+      }
+      this.modalDelete = false
+      this.taskToDelete = null
+      this.setLoading(false)
     },
     refreshStatus (task) {
       const query = { id: task.id }
@@ -163,6 +191,14 @@ export default {
     },
     copyTask (task) {
 
+    },
+    openDeleteModal (task) {
+      this.modalDelete = true
+      this.taskToDelete = task
+    },
+    closeModal () {
+      this.modalDelete = false
+      this.taskToDelete = null
     }
   }
 }
