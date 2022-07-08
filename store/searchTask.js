@@ -56,7 +56,7 @@ export default {
 
       commit('SET_IS_LOADING', false)
       if (tasks === BACKEND_STATUS.ERROR || tasks === BACKEND_STATUS.UNREACHABLE) {
-        commit('SET_SEARCH_MSG', 'Server error :' + tasks)
+        commit('SET_SEARCH_MSG', 'Server error : ' + tasks)
         return
       }
 
@@ -70,7 +70,7 @@ export default {
 
       commit('SET_IS_LOADING', false)
       if (task === BACKEND_STATUS.ERROR || task === BACKEND_STATUS.UNREACHABLE) {
-        commit('SET_SEARCH_MSG', 'Server error :' + task)
+        commit('SET_SEARCH_MSG', 'Server error : ' + task)
         return
       }
 
@@ -88,7 +88,7 @@ export default {
 
       commit('SET_IS_LOADING', false)
       if (tasks === BACKEND_STATUS.ERROR || tasks === BACKEND_STATUS.UNREACHABLE) {
-        commit('SET_SEARCH_MSG', 'Server error :' + tasks)
+        commit('SET_SEARCH_MSG', 'Server error : ' + tasks)
         return
       }
 

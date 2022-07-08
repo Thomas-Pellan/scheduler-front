@@ -107,6 +107,24 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+      <v-snackbar
+        v-model="snackbarError"
+        :timeout="timeout"
+        color="error"
+      >
+        {{ errorMsg }}
+
+        <template #action="{ attrs }">
+          <v-btn
+            color="white"
+            text
+            v-bind="attrs"
+            @click="snackbarError = false"
+          >
+            Close
+          </v-btn>
+        </template>
+      </v-snackbar>
     </template>
   </v-data-table>
 </template>
@@ -120,6 +138,9 @@ export default {
   name: 'TaskSearchResults',
   data () {
     return {
+      snackbarError: false,
+      errorMsg: null,
+      timeout: 2000,
       taskToDelete: null,
       modalDelete: false,
       headers: [
@@ -179,6 +200,9 @@ export default {
       const result = await this.$api.task.delete(this.taskToDelete.id)
       if (result === true) {
         this.deleteTaskFromResults(this.taskToDelete)
+      } else {
+        this.snackbarError = true
+        this.errorMsg = 'Something happened during the deletion, please try again later'
       }
       this.modalDelete = false
       this.taskToDelete = null
