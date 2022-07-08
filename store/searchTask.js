@@ -45,6 +45,17 @@ export default {
         }
       })
       state.tasksFound = tasks
+    },
+    UPDATE_TASK: (state, task) => {
+      const tasks = []
+      state.tasksFound.forEach((item) => {
+        if (item.id !== task.id) {
+          tasks.push(item)
+        } else {
+          tasks.push(task)
+        }
+      })
+      state.tasksFound = tasks
     }
   },
   actions: {

@@ -42,7 +42,7 @@ export default axios => ({
   },
   async update (updatedTask) {
     try {
-      const result = await axios.post(URL_PREFIX + '/update', updatedTask)
+      const result = await axios.post(URL_PREFIX + '/modify', updatedTask)
       return result.data
     } catch (error) {
       if (error.response) {

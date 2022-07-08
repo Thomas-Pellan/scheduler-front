@@ -133,6 +133,7 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import moment from 'moment'
 import { DATE_TIME_FORMAT } from '@/utils/vars'
+import { BACKEND_STATUS } from '@/utils/enums'
 
 export default {
   name: 'TaskSearchResults',
@@ -165,6 +166,7 @@ export default {
     ...mapMutations({
       setQuery: 'searchTask/SET_QUERY',
       deleteTaskFromResults: 'searchTask/DELETE_TASK',
+      updateTaskInResults: 'searchTask/UPDATE_TASK',
       setLoading: 'searchTask/SET_IS_LOADING'
     }),
     ...mapActions({
@@ -192,8 +194,19 @@ export default {
     editTask (task) {
 
     },
-    inactivateTask () {
-
+    async inactivateTask () {
+      this.setLoading(true)
+      this.taskToDelete.active = false
+      const result = await this.$api.task.update(this.taskToDelete)
+      if (result !== BACKEND_STATUS.ERROR && result !== BACKEND_STATUS.UNREACHABLE) {
+        this.updateTaskInResults(result)
+      } else {
+        this.snackbarError = true
+        this.errorMsg = 'Something happened during the modification, please try again later'
+      }
+      this.modalDelete = false
+      this.taskToDelete = null
+      this.setLoading(false)
     },
     async deleteTask () {
       this.setLoading(true)
@@ -218,7 +231,7 @@ export default {
     },
     openDeleteModal (task) {
       this.modalDelete = true
-      this.taskToDelete = task
+      this.taskToDelete = { ...task }
     },
     closeModal () {
       this.modalDelete = false
