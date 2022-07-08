@@ -16,6 +16,18 @@ export default axios => ({
       }
     }
   },
+  async findById (id) {
+    try {
+      const result = await axios.get(URL_PREFIX + '/find/id', { params: { id } })
+      return result.data
+    } catch (error) {
+      if (error.response) {
+        return BACKEND_STATUS.ERROR
+      } else if (error.request) {
+        return BACKEND_STATUS.UNREACHABLE
+      }
+    }
+  },
   async findAll () {
     try {
       const result = await axios.get(URL_PREFIX + '/find/all')

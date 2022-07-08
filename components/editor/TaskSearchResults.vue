@@ -7,7 +7,7 @@
     :loading="isLoading"
     loading-text="Fetching the tasks, please wait"
   >
-    <template v-slot:[`item.active`]="{ item }">
+    <template #[`item.active`]="{ item }">
       <v-chip
         :color="getStatusColor(item.active)"
         dark
@@ -15,7 +15,7 @@
         {{ item.active ? 'Yes' : 'No' }}
       </v-chip>
     </template>
-    <template v-slot:[`item.lastResult`]="{ item }">
+    <template #[`item.lastResult`]="{ item }">
       <v-chip
         :color="getResultColor(item.lastResult)"
         dark
@@ -23,15 +23,15 @@
         {{ item.lastResult }}
       </v-chip>
     </template>
-    <template v-slot:[`item.lastExecution`]="{ item }">
-        {{ getExecutionStr(item.lastExecution) }}
+    <template #[`item.lastExecution`]="{ item }">
+      {{ getExecutionStr(item.lastExecution) }}
     </template>
-    <template v-slot:[`item.actions`]="{ item }">
+    <template #[`item.actions`]="{ item }">
       <v-tooltip
         left
         color="grey"
       >
-        <template v-slot:activator="{ on, attrs }">
+        <template #activator="{ on, attrs }">
           <v-icon
             small
             class="mr-2"
@@ -48,7 +48,7 @@
         left
         color="grey"
       >
-        <template v-slot:activator="{ on, attrs }">
+        <template #activator="{ on, attrs }">
           <v-icon
             small
             class="mr-2"
@@ -65,7 +65,7 @@
         left
         color="grey"
       >
-        <template v-slot:activator="{ on, attrs }">
+        <template #activator="{ on, attrs }">
           <v-icon
             small
             v-bind="attrs"
@@ -81,7 +81,7 @@
         left
         color="grey"
       >
-        <template v-slot:activator="{ on, attrs }">
+        <template #activator="{ on, attrs }">
           <v-icon
             small
             v-bind="attrs"
@@ -98,7 +98,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import moment from 'moment'
 import { DATE_TIME_FORMAT } from '@/utils/vars'
 
@@ -125,6 +125,12 @@ export default {
     })
   },
   methods: {
+    ...mapMutations({
+      setQuery: 'searchTask/SET_QUERY'
+    }),
+    ...mapActions({
+      updateTaskStatus: 'searchTask/UPDATE_TASK_EXECUTION'
+    }),
     getStatusColor (status) {
       if (status) {
         return 'green'
@@ -151,7 +157,9 @@ export default {
 
     },
     refreshStatus (task) {
-
+      const query = { id: task.id }
+      this.setQuery(query)
+      this.updateTaskStatus()
     },
     copyTask (task) {
 

@@ -33,9 +33,9 @@
       <v-spacer />
     </v-app-bar>
     <v-main>
-      <v-contcainer>
+      <v-container>
         <Nuxt />
-      </v-contcainer>
+      </v-container>
     </v-main>
   </v-app>
 </template>

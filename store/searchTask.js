@@ -24,10 +24,18 @@ export default {
       state.tasksFound = tasksFound
     },
     SET_SEARCH_MSG: (state, searchMsg) => {
-      state.tasksFound = searchMsg
+      state.searchMsg = searchMsg
     },
     SET_IS_LOADING: (state, isLoading) => {
       state.isLoading = isLoading
+    },
+    UPDATE_TASK_STATUS: (state, task) => {
+      state.tasksFound.forEach((item) => {
+        if (item.id === task.id) {
+          item.lastExecution = task.lastExecution
+          item.lastResult = task.lastResult
+        }
+      })
     }
   },
   actions: {
@@ -44,6 +52,24 @@ export default {
       }
 
       commit('SET_TASKS_FOUND', tasks)
+    },
+    async UPDATE_TASK_EXECUTION ({ commit, getters }) {
+      commit('SET_IS_LOADING', true)
+      commit('SET_SEARCH_MSG', null)
+
+      const task = await this.$api.task.findById(getters.QUERY.id)
+
+      commit('SET_IS_LOADING', false)
+      if (task === BACKEND_STATUS.ERROR || task === BACKEND_STATUS.UNREACHABLE) {
+        commit('SET_SEARCH_MSG', 'Server error :' + task)
+        return
+      }
+
+      if (getters.TASKS_FOUND === []) {
+        return
+      }
+
+      commit('UPDATE_TASK_STATUS', task)
     },
     async FETCH_ALL_TASKS ({ commit }) {
       commit('SET_IS_LOADING', true)
