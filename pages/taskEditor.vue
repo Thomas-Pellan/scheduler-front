@@ -12,7 +12,7 @@
       grow
     >
       <v-tab
-        v-for="item in items"
+        v-for="item in tabs"
         :key="item"
       >
         {{ item }}
@@ -20,7 +20,7 @@
 
       <v-tabs-items v-model="tab">
         <v-tab-item
-          v-for="item in items"
+          v-for="item in tabs"
           :key="item"
         >
           <v-card
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-
+import { mapGetters, mapMutations } from 'vuex'
 import TaskSearch from '@/components/editor/TaskSearch'
 import TaskForm from '@/components/editor/TaskForm'
 import InputSearch from '@/components/editor/InputSearch'
@@ -64,13 +64,24 @@ export default {
     TaskForm,
     TaskSearch
   },
-  data () {
-    return {
-      tab: null,
-      items: [
-        'Task Search', 'Task Edition', 'Input Search', 'Input Edition'
-      ]
+  computed: {
+    ...mapGetters({
+      tabs: 'taskEditorMenu/TABS',
+      menuTab: 'taskEditorMenu/MENU_TAB'
+    }),
+    tab: {
+      get () {
+        return this.menuTab
+      },
+      set (value) {
+        this.setTab(value)
+      }
     }
+  },
+  methods: {
+    ...mapMutations({
+      setTab: 'taskEditorMenu/SET_MENU_TAB'
+    })
   }
 }
 </script>

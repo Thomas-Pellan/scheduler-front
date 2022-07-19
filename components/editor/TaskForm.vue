@@ -6,3 +6,7 @@
     Task editor form
   </v-card>
 </template>
+
+<script>
+
+</script>

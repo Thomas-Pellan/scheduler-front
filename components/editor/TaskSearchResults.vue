@@ -95,15 +95,23 @@
       </v-tooltip>
       <v-dialog v-model="modalDelete" max-width="550px">
         <v-card>
-          <v-card-title class="text-h5">Do you want to delete or inactivate this item ?</v-card-title>
+          <v-card-title class="text-h5">
+            Do you want to delete or inactivate this item ?
+          </v-card-title>
           <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="green" text @click="closeModal">Cancel</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn color="orange" text @click="inactivateTask">Inactivate</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn color="red" text @click="deleteTask">Delete</v-btn>
-            <v-spacer></v-spacer>
+            <v-spacer />
+            <v-btn color="green" text @click="closeModal">
+              Cancel
+            </v-btn>
+            <v-spacer />
+            <v-btn color="orange" text @click="inactivateTask">
+              Inactivate
+            </v-btn>
+            <v-spacer />
+            <v-btn color="red" text @click="deleteTask">
+              Delete
+            </v-btn>
+            <v-spacer />
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -113,7 +121,6 @@
         color="error"
       >
         {{ errorMsg }}
-
         <template #action="{ attrs }">
           <v-btn
             color="white"
@@ -159,7 +166,8 @@ export default {
     ...mapGetters({
       taskSearchMsg: 'searchTask/SEARCH_MSG',
       tasksFound: 'searchTask/TASKS_FOUND',
-      isLoading: 'searchTask/IS_LOADING'
+      isLoading: 'searchTask/IS_LOADING',
+      taskToEdit: 'taskEdition/TASK'
     })
   },
   methods: {
@@ -167,10 +175,13 @@ export default {
       setQuery: 'searchTask/SET_QUERY',
       deleteTaskFromResults: 'searchTask/DELETE_TASK',
       updateTaskInResults: 'searchTask/UPDATE_TASK',
-      setLoading: 'searchTask/SET_IS_LOADING'
+      setLoading: 'searchTask/SET_IS_LOADING',
+      setTaskEdition: 'taskEdition/SET_TASK',
+      goToEdition: 'taskEditorMenu/SET_MENU_TAB_EDITION'
     }),
     ...mapActions({
-      updateTaskStatus: 'searchTask/UPDATE_TASK_EXECUTION'
+      updateTaskStatus: 'searchTask/UPDATE_TASK_EXECUTION',
+      duplicateTask: 'taskEdition/DUPLICATE_TASK'
     }),
     getStatusColor (status) {
       if (status) {
@@ -192,7 +203,8 @@ export default {
       return moment(executionDate).format(DATE_TIME_FORMAT)
     },
     editTask (task) {
-
+      this.setTaskEdition(task)
+      this.goToEdition()
     },
     async inactivateTask () {
       this.setLoading(true)
@@ -227,7 +239,8 @@ export default {
       this.updateTaskStatus()
     },
     copyTask (task) {
-
+      this.duplicateTask(task)
+      this.goToEdition()
     },
     openDeleteModal (task) {
       this.modalDelete = true
