@@ -46,19 +46,16 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
-import FormValidationMixin from '@/mixins/formValidation.mixin'
+import validateStrSize from '@/helpers/formValidation'
 
 export default {
   name: 'TaskSearch',
-  mixins: [
-    FormValidationMixin
-  ],
   data () {
     return {
       queryName: null,
       queryUrl: null,
       rules: [
-        value => this.validateStrSize(value, 3)
+        value => validateStrSize(value, 3)
       ]
     }
   },

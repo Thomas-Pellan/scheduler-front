@@ -41,25 +41,22 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import FormValidationMixin from '@/mixins/formValidation.mixin'
+import validateStrSize from '@/helpers/formValidation'
 
 export default {
   name: 'TaskForm',
-  mixins: [
-    FormValidationMixin
-  ],
   data () {
     return {
       isLoading: false,
       valid: true,
       rulesUrl: [
-        value => this.validateStrSize(value, 10)
+        value => validateStrSize(value, 10)
       ],
       rulesName: [
-        value => this.validateStrSize(value, 5)
+        value => validateStrSize(value, 5)
       ],
       rulesCron: [
-        value => this.validateStrSize(value, 6)
+        value => validateStrSize(value, 6)
       ]
     }
   },

@@ -28,13 +28,10 @@
 
 <script>
 import { BACKEND_STATUS } from '@/utils/enums'
-import FormValidationMixin from '@/mixins/formValidation.mixin'
+import validateStrSize from '@/helpers/formValidation'
 
 export default {
   name: 'CronValidator',
-  mixins: [
-    FormValidationMixin
-  ],
   data () {
     return {
       expression: null,
@@ -43,7 +40,7 @@ export default {
       isLoading: false,
       rules: [
         value => !!value || 'Required.',
-        value => this.validateStrSize(value, 6)
+        value => validateStrSize(value, 6)
       ]
     }
   },
