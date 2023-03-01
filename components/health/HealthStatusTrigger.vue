@@ -36,6 +36,11 @@ export default {
       interval: 5000
     }
   },
+  computed: {
+    ...mapGetters({
+      lastCheckDate: 'health/LAST_STATUS_DATE'
+    })
+  },
   created () {
     this.checkInterval = setInterval(() => {
       if (this.continuous) {
@@ -45,11 +50,6 @@ export default {
   },
   beforeDestroy () {
     clearInterval(this.checkInterval)
-  },
-  computed: {
-    ...mapGetters({
-      lastCheckDate: 'health/LAST_STATUS_DATE'
-    })
   },
   methods: {
     ...mapActions({

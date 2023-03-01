@@ -16,9 +16,9 @@ export default axios => ({
       }
     }
   },
-  async flush ({ name, date}) {
+  async flush ({ name, date }) {
     try {
-      const result = await axios.delete(URL_PREFIX + '/flush', { params: { name, date } } )
+      const result = await axios.delete(URL_PREFIX + '/flush', { params: { name, date } })
       return result.data
     } catch (error) {
       if (error.response) {

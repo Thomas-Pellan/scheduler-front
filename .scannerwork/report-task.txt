@@ -1,0 +1,6 @@
+projectKey=scheduler-front
+serverUrl=http://localhost:9000
+serverVersion=9.6.1.59531
+dashboardUrl=http://localhost:9000/dashboard?id=scheduler-front
+ceTaskId=AYNe56Rf3FvgY7Estp8L
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AYNe56Rf3FvgY7Estp8L

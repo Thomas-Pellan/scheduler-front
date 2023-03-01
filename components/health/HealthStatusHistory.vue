@@ -6,8 +6,7 @@
     :items-per-page="5"
     :items="statusHistory"
     :headers="headers"
-  >
-  </v-data-table>
+  />
 </template>
 
 <script>
